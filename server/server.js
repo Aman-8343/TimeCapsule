@@ -5,7 +5,7 @@ const app=express();
 const port=5000
 
 app.get('/',(req,res)=>{
-    res.send("connected")
+    res.send("API is running...")
 })
 
-app.listen(`Server is running at ${port}`)
+app.listen(port,()=>{console.log(`Server is running at ${port}`)})

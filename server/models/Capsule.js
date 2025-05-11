@@ -1,10 +1,36 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose from 'mongoose';
 
+const capsuleSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', 
+    required: true
+  },
+  message: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  files: [
+    {
+      url: String,
+      type: String, 
+    }
+  ],
+  unlockDate: {
+    type: Date,
+    required: true
+  },
+  isUnlocked: {
+    type: Boolean,
+    default: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
 
-const CapsuleSchema= new mongoose.Schema({})
-
-
-
-const Capsule=mongoose.model("Capsule",CapsuleSchema)
+const Capsule = mongoose.model('Capsule', capsuleSchema);
 
 export default Capsule;

@@ -1,7 +1,7 @@
 
 import express from "express";
 import { createCapsule } from "../controllers/capsuleController.js";
-import { protect } from "../middlewares/authMiddleware.js";
+import protect from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 

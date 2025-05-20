@@ -1,5 +1,5 @@
 
-import Capsule from "../models/capsuleModel.js";
+import Capsule from "../models/Capsule.js";
 
 export const createCapsule = async (req, res) => {
   try {

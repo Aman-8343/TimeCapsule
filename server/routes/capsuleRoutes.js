@@ -3,7 +3,8 @@ import express from "express";
 import { createCapsule,
     getMyCapsules,
     updateCapsule,
-    deleteCapsule
+    deleteCapsule,
+    getCapsuleById
  } from "../controllers/capsuleController.js";
 import protect from "../middlewares/authMiddleware.js";
 
@@ -13,5 +14,6 @@ router.post("/", protect, createCapsule);
 router.get("/", protect, getMyCapsules);
 router.put("/:id", protect, updateCapsule);
 router.delete("/:id", protect, deleteCapsule);
+router.get("/:id", protect, getCapsuleById);
 
 export default router;

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const sampleCapsules = [
   {
@@ -24,6 +25,14 @@ const sampleCapsules = [
 export default function Dashboard() {
   const [capsules, setCapsules] = useState(sampleCapsules);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate(); // <-- initialize navigate here
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn !== "true") {
+      navigate("/login"); // redirect to login if not logged in
+    }
+  }, [navigate]);
 
   // Filter capsules by search term
   const filteredCapsules = capsules.filter((capsule) =>

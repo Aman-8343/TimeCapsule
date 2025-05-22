@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -13,18 +13,21 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
-      const response = await axios.post('/api/auth/login', formData);
-      localStorage.setItem('token', response.data.token);
-      navigate('/'); 
+      const response = await axios.post("/api/auth/login", formData);
+      localStorage.setItem("token", response.data.token);
+
+      // Set a simple flag to indicate user is logged in
+      localStorage.setItem("isLoggedIn", "true");
+
+      // Redirect to dashboard page after successful login
+      navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || "Login failed");
     }
   };
-
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -32,9 +35,7 @@ const Login = () => {
         <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
 
         {error && (
-          <div className="bg-red-100 text-red-700 p-2 mb-4 rounded">
-            {error}
-          </div>
+          <div className="bg-red-100 text-red-700 p-2 mb-4 rounded">{error}</div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -71,7 +72,10 @@ const Login = () => {
         </form>
 
         <p className="text-sm text-center mt-4">
-          Don't have an account? <a href="/register" className="text-blue-500 hover:underline">Register</a>
+          Don't have an account?{" "}
+          <a href="/register" className="text-blue-500 hover:underline">
+            Register
+          </a>
         </p>
       </div>
     </div>

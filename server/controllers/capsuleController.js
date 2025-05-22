@@ -78,3 +78,33 @@ export const deleteCapsule = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// GET: View a single capsule only if it's unlocked
+export const getCapsuleById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const capsule = await Capsule.findOne({
+      _id: id,
+      owner: req.user._id,
+    });
+
+    if (!capsule) {
+      return res.status(404).json({ message: "Capsule not found" });
+    }
+
+    const currentDate = new Date();
+    const unlockDate = new Date(capsule.unlockDate);
+
+    if (currentDate < unlockDate) {
+      return res.status(403).json({
+        message: `This capsule will unlock on ${unlockDate.toDateString()}`,
+      });
+    }
+
+    res.status(200).json(capsule);
+  } catch (error) {
+    console.error("Fetch capsule error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

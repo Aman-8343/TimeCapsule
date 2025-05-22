@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CreateCapsule from "./CreateCapsule";
 
 const sampleCapsules = [
   {
@@ -25,6 +26,8 @@ const sampleCapsules = [
 export default function Dashboard() {
   const [capsules, setCapsules] = useState(sampleCapsules);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showCreateForm, setShowCreateForm] = useState(false);
+
   const navigate = useNavigate(); // <-- initialize navigate here
 
   useEffect(() => {
@@ -55,11 +58,20 @@ export default function Dashboard() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button
-          className="bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition"
-          onClick={() => alert("Create New Capsule functionality coming soon!")}
-        >
-          + Create New Capsule
-        </button>
+  className="bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition"
+  onClick={() => setShowCreateForm(!showCreateForm)}
+>
+  {showCreateForm ? "Cancel" : "+ Create New Capsule"}
+</button>
+{showCreateForm && (
+  <CreateCapsule
+    onCreate={(newCapsule) => {
+      setCapsules([newCapsule, ...capsules]);
+      setShowCreateForm(false);
+    }}
+  />
+)}
+
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

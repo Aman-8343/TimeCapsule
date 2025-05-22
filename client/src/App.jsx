@@ -7,7 +7,7 @@ import ViewCapsule from "./pages/ViewCapsule";
 
 function App() {
   return (
-    <BrowserRouter>
+    
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
@@ -15,7 +15,7 @@ function App() {
         <Route path="/create" element={<CreateCapsule />} />
         <Route path="/capsule/:id" element={<ViewCapsule />} />
       </Routes>
-    </BrowserRouter>
+   
   );
 }
 

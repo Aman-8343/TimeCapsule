@@ -1,4 +1,3 @@
-
 import Capsule from "../models/Capsule.js";
 
 export const createCapsule = async (req, res) => {
@@ -10,7 +9,7 @@ export const createCapsule = async (req, res) => {
     }
 
     const newCapsule = new Capsule({
-      user: req.user._id, // from middleware
+      owner: req.user._id, 
       title,
       message,
       unlockDate,

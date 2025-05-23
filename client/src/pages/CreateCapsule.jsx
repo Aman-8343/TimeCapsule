@@ -1,10 +1,42 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+
+
+
+
 
 export default function CreateCapsule({ onCreate }) {
   const [title, setTitle] = useState("");
   const [createdAt, setCreatedAt] = useState(() =>
     new Date().toISOString().split("T")[0]
   ); // default today’s date
+
+const token = localStorage.getItem("token");
+
+axios.post(
+  "/api/capsules",
+  {
+    title,
+    createdAt: new Date().toISOString(),
+    status: "Locked",
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+)
+.then((res) => {
+  console.log("Capsule created:", res.data);
+  // Optionally navigate to dashboard or refresh list
+})
+.catch((err) => {
+  console.error("Failed to create capsule", err);
+});
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();

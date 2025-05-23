@@ -16,4 +16,6 @@ router.put("/:id", protect, updateCapsule);
 router.delete("/:id", protect, deleteCapsule);
 router.get("/:id", protect, getCapsuleById);
 
+router.post("/", protect, upload.single("file"), createCapsule);
+
 export default router;

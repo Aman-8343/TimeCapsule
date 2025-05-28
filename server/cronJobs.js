@@ -3,14 +3,12 @@ import Capsule from "./models/Capsule.js";
 import User from "./models/User.js";
 import { sendReminderEmail } from "./utils/emailService.js";
 
-cron.schedule("0 0 * * *", async () => {
-  console.log("⏰ Running daily unlock check...");
-
-  const today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+const runReminderNow = async () => {
+  const today = new Date().toISOString().split("T")[0];
 
   const dueCapsules = await Capsule.find({
     unlockDate: { $lte: today },
-    reminderSent: { $ne: true }
+    reminderSent: { $ne: true },
   });
 
   for (const capsule of dueCapsules) {
@@ -25,4 +23,8 @@ cron.schedule("0 0 * * *", async () => {
       await capsule.save();
     }
   }
-});
+
+  console.log("🔔 Manual reminder run complete");
+};
+
+runReminderNow(); // call it just once for testing

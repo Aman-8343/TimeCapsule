@@ -3,6 +3,8 @@ import Capsule from "../models/Capsule.js";
 export const createCapsule = async (req, res) => {
   try {
     const { title, message, unlockDate } = req.body;
+    const image = req.file?.path || req.body.image || null;
+
 
     if (!title || !message || !unlockDate) {
       return res.status(400).json({ message: "All fields are required" });

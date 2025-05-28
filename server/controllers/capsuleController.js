@@ -13,6 +13,7 @@ export const createCapsule = async (req, res) => {
       title,
       message,
       unlockDate,
+      image,
     });
 
     const savedCapsule = await newCapsule.save();
@@ -108,3 +109,36 @@ export const getCapsuleById = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+
+
+export const unlockCapsule = async (req, res) => {
+  try {
+    const capsule = await Capsule.findById(req.params.id);
+
+    if (!capsule) {
+      return res.status(404).json({ message: "Capsule not found" });
+    }
+
+    // Only allow access if user is the owner
+    if (capsule.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    const currentDate = new Date();
+    const unlockDate = new Date(capsule.unlockDate);
+
+    if (currentDate >= unlockDate) {
+      return res.status(200).json({ capsule });
+    } else {
+      return res.status(403).json({ message: "Capsule is still locked" });
+    }
+  } catch (error) {
+    console.error("Unlock capsule error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+

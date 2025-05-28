@@ -18,7 +18,7 @@ router.get("/", protect, getMyCapsules);
 router.put("/:id", protect, updateCapsule);
 router.delete("/:id", protect, deleteCapsule);
 router.get("/:id", protect, getCapsuleById);
-router.get("/unlock/:id", authMiddleware, unlockCapsule);
+router.get("/unlock/:id", protect, unlockCapsule);
 
 
 

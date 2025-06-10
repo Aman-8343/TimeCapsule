@@ -18,5 +18,14 @@ export const loginUser = async (credentials) => {
     body: JSON.stringify(credentials),
   });
 
+
+   if (!res.ok) {
+    const errorData = await res.json(); // show backend error
+    throw new Error(errorData.message || "Login failed");
+  }
+
+console.log(formData); // Should show email and password as expected
+
+
   return await response.json();
 };

@@ -32,7 +32,11 @@ const capsuleSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  reminderSent: {
+  type: Boolean,
+  default: false,
+},
 });
 
 const Capsule = mongoose.model('Capsule', capsuleSchema);

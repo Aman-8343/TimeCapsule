@@ -1,6 +1,29 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CreateCapsule from "./CreateCapsule";
+
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
+    return;
+  }
+
+  axios
+    .get("/api/capsules", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setCapsules(res.data); // Set fetched capsules
+    })
+    .catch((err) => {
+      console.error("Error fetching capsules", err);
+    });
+}, []);
+
 
 const sampleCapsules = [
   {

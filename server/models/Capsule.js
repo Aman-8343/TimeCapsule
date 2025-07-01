@@ -19,7 +19,7 @@ const capsuleSchema = new mongoose.Schema({
   ],
   image: {
   type: String,
-  default: "", // optional
+  default: "",
 },
   unlockDate: {
     type: Date,

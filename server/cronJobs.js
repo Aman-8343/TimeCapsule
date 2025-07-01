@@ -27,4 +27,4 @@ const runReminderNow = async () => {
   console.log("🔔 Manual reminder run complete");
 };
 
-runReminderNow(); // call it just once for testing
+runReminderNow(); 

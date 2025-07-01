@@ -10,7 +10,7 @@ import "./cronJobs.js";
 
 
 
-dotenv.config();
+
 connectDB();
 
 

@@ -1,5 +1,4 @@
-// src/services/authService.js
-const API_URL = "http://localhost:5000/api/auth"; // your backend auth endpoint
+const API_URL = "http://localhost:5000/api/auth"; 
 
 export const registerUser = async (userData) => {
   const response = await fetch(`${API_URL}/register`, {
@@ -20,11 +19,11 @@ export const loginUser = async (credentials) => {
 
 
    if (!res.ok) {
-    const errorData = await res.json(); // show backend error
+    const errorData = await res.json(); 
     throw new Error(errorData.message || "Login failed");
   }
 
-console.log(formData); // Should show email and password as expected
+console.log(formData); // show email and password as expected
 
 
   return await response.json();

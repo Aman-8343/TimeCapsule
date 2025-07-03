@@ -44,7 +44,11 @@ export const loginUser = async (req, res) => {
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
     // Compare password
+    console.log("User from DB:", user);
+console.log("Plain Password:", password);
+console.log("Stored Hashed Password:", user.password);
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log("Password Match:", isMatch);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
     // Create JWT token
@@ -61,6 +65,8 @@ export const loginUser = async (req, res) => {
         email: user.email,
       },
     });
+
+  
 
   } catch (err) {
     console.error(err);

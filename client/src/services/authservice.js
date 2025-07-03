@@ -17,14 +17,13 @@ export const loginUser = async (credentials) => {
     body: JSON.stringify(credentials),
   });
 
-
-   if (!res.ok) {
-    const errorData = await res.json(); 
+  if (!response.ok) {
+    const errorData = await response.json(); 
     throw new Error(errorData.message || "Login failed");
   }
 
-console.log(formData); // show email and password as expected
-
+  // Log credentials safely (optional)
+  console.log("Credentials sent:", credentials);
 
   return await response.json();
 };
